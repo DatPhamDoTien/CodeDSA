@@ -152,19 +152,23 @@ int writeFile(NODE* tree, char* fileName){
 }
 
 
+
 int readFile(NODE* tree, char* fileName){
-	FILE* fp;
-	fopen_s(&fp, fileName, "rt");
-	if(fp == nullptr){
+	FILE* f;
+	fopen_s(&f, fileName, "rt");
+	if(f==nullptr){
 		return 0;
-	}else{
-		int num, value;
-		fscanf_s(fp, "%d", num);
-		for(int i =0; i< num; i++){
-			fscanf_s(fp, "%d", &value);
-			tree = insertTree(tree, value);
-		}
-		fclose(fp);
+	}
+	int num, data;
+	fscanf_s(f, "%d", &num);
+	
+	for(int i = 0; i < num; i++){
+		fscanf_s(f, "%d", &data);
+		insertTree(tree, data);	
 	}
 	return 1;
 }
+
+
+
+
