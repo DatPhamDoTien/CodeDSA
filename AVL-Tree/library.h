@@ -16,5 +16,9 @@ NODE* leftRotate(NODE* tree);
 NODE* rightLeftRotate(NODE* tree);
 NODE* leftRightRotate(NODE* tree);
 NODE* insertTree(NODE* tree, TYPEINFO data);
-void createTree(NODE* tree);
+void createTree(NODE*& tree);
+void findLeftMostOnRight(NODE* tree, NODE* pTree);
+NODE* deleteNodeInTree(NODE*& tree, TYPEINFO data);
+void preOrder(NODE* tree);
+
 
