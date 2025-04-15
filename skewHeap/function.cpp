@@ -1,10 +1,5 @@
 #include "library.h"
 
-void init(skewHeap* sh) {
-	sh->value = 0;
-	sh->left = nullptr;
-	sh->right = nullptr;
-}
 
 void swapp(TYPEINFO* valA, TYPEINFO* valB) {
 	TYPEINFO temp = *valA;
@@ -47,12 +42,11 @@ skewHeap* insertTree(skewHeap* tree, TYPEINFO data) {
 	return tree;
 }
 skewHeap* deleteMin(skewHeap* tree) {
-	skewHeap* temp = tree;
-	tree = tree->left;
+	if (tree == nullptr) return nullptr;
+	skewHeap* leftNode = tree->left;
 	skewHeap* rightNode = tree->right;
-	delete temp;
-	tree->left = merge(tree, rightNode);
-	return tree;
+	delete tree;
+	return merge(leftNode, rightNode);
 }
 
 
@@ -76,26 +70,33 @@ void preorder(skewHeap* tree) {
 
 
 //Decreasekey(S, p, k)
-skewHeap* deleteNode(skewHeap* tree, TYPEINFO valDel) {
+skewHeap* deleteNode(skewHeap* tree, TYPEINFO valDel, bool& deleted) {
 	if (!tree) return nullptr;
-
-	if (tree->value == valDel) {
+	if(!tree || deleted) return tree;
+	if(tree->value == valDel && !deleted){
+		deleted = true;
 		skewHeap* merged = merge(tree->left, tree->right);
 		delete tree;
 		return merged;
-	}
-	tree->left = deleteNode(tree->left, valDel);
-	tree->right = deleteNode(tree->right, valDel);
+	} 
+	tree->left = deleteNode(tree->left, valDel, deleted);
+	tree->right = deleteNode(tree->right, valDel, deleted);
+
 	return tree;
 }
 
-skewHeap* descreasekey(skewHeap*& tree, TYPEINFO used, TYPEINFO newData) {
-	if (used < newData) {
-		cout << "Gia tri moi phai lon hon gia tri cu";
+skewHeap* decreaseKey(skewHeap*& tree, TYPEINFO used, TYPEINFO newData) {
+	if (newData >= used) {
+		cout << "Gia tri moi phai nho hon gia tri cu\n";
 		return tree;
 	}
-	deleteNode(tree, used);
-	insertTree(tree, newData);
+	bool deleted = false;
+	tree = deleteNode(tree, used, deleted);
+	if(!deleted){
+		cout<<"Không tìm thấy giá trị giảm khoá!";
+		return tree;
+	}
+	tree = insertTree(tree, newData);
 	return tree;
 }
 

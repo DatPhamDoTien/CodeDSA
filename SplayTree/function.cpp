@@ -1,102 +1,105 @@
 #include "library.h"
 
-
-NODE* createNode(TYPEINFO data){
-	NODE* newNode = new NODE();
-	newNode->value = data;
-	newNode->left = nullptr;
-	newNode->right = nullptr;
-	return newNode;
-}
-//Zig case.
-NODE* rightRotate(NODE* tree) {
-	NODE* leftNode = tree->left;
-	tree->left = leftNode->right;
-	leftNode->right = tree;
-	return leftNode;
+NODE *createNode(TYPEINFO data) {
+  NODE *newNode = new NODE;
+  newNode->value = data;
+  newNode->left = nullptr;
+  newNode->right = nullptr;
+  return newNode;
 }
 
-//Zag-case
-NODE* leftRotate(NODE* tree) {
-	NODE* rightNode = tree->right;
-	tree->right = rightNode->left;
-	rightNode->left = tree;
-	return rightNode;
+// zig case
+NODE *rightRotate(NODE *tree) {
+  NODE *leftNode = tree->left;
+  NODE *leftRightNode = leftNode->right;
+  leftNode->right = tree;
+  tree->left = leftRightNode;
+  return leftNode;
 }
 
-NODE* splay(NODE* tree, TYPEINFO data){
-	if(tree == nullptr || tree->value == data) return tree;
-
-	if(tree->value > data){
-		if(tree->left == nullptr) return tree;
-
-		if(tree->left->value > data){
-			tree->left->left = splay(tree->left->left, data);
-			tree = rightRotate(tree);
-		} else if(tree->left->value < data){
-			tree->left->right = splay(tree->left->right, data);
-			if(tree->left->right != nullptr)
-				tree->left = leftRotate(tree->left);
-		}
-		return (tree->left == nullptr) ? tree : rightRotate(tree);
-	}
-	else{
-		if(tree->right == nullptr) return tree;
-
-		if(tree->right->value > data){
-			tree->right->left = splay(tree->right->left, data);
-			if(tree->right->left != nullptr)
-				tree->right = rightRotate(tree->right);
-		}
-		else if(tree->right->value < data){	
-			tree->right->right = splay(tree->right->right, data);
-			tree = leftRotate(tree);
-		}
-		return(tree->right == nullptr) ? tree : leftRotate(tree);
-	}
+// zag case
+NODE *leftRotate(NODE *tree) {
+  NODE *rightNode = tree->right;
+  NODE *rightLeftNode = rightNode->left;
+  rightNode->left = tree;
+  tree->right = rightLeftNode;
+  return rightNode;
 }
 
-NODE* insert(NODE* tree,TYPEINFO data) {
-	if(tree == nullptr) return createNode(data);
+NODE *splay(NODE *tree, TYPEINFO data) {
+  if (tree == nullptr || tree->value == data)
+    return tree;
 
-	tree = splay(tree, data);
+  if (data < tree->value) {
+    if (tree->left == nullptr)
+      return tree;
 
-	if(tree->value == data){ 
-		cout<<"Duplicate value!\n";
-		return tree;
-	}
-	NODE* node = createNode(data);
-	if(tree->value > data){
-		node->right = tree;
-		node->left = tree->left;
-		tree->left = nullptr;
-	} 
-	else{
-		node->left = tree;
-		node->right = tree->right;
-		tree->right = nullptr;
-	}
-	return node;
-}
+    if (data < tree->left->value) {
+      tree->left->left = splay(tree->left->left, data);
+      tree = rightRotate(tree);
+    } else if (data > tree->left->value) {
+      tree->left->right = splay(tree->left->right, data);
+      if (tree->left->right != nullptr)
+        tree->left = leftRotate(tree->left);
+    }
+    return (tree->left == nullptr) ? tree : rightRotate(tree);
+  } else {
+    if (tree->right == nullptr)
+      return tree;
 
-void createTree(NODE*& tree){
-	TYPEINFO data;
-	while(true){
-		cout<<"Enter data (-99 break): "; cin >> data;
-		if(data != -99)
-			tree = insert(tree, data);
-		else break;
-	}
+    if (data > tree->right->value) {
+      tree->right->right = splay(tree->right->right, data);
+      tree = leftRotate(tree);
+    } else if (data < tree->right->value) {
+      tree->right->left = splay(tree->right->left, data);
+      if (tree->right->left != nullptr)
+        tree->right = rightRotate(tree->right); // SỬA Ở ĐÂY
+    }
+    return (tree->right == nullptr) ? tree : leftRotate(tree);
+  }
 }
 
 
-void preOrder(NODE* tree) {
-	if(tree != nullptr){
-		cout<<tree->value<<"\t";
-		preOrder(tree->left);
-		preOrder(tree->right);
-	}
+NODE *insert(NODE *tree, TYPEINFO data) {
+  if (tree == nullptr)
+    return createNode(data);
+  if (data < tree->value) {
+    tree->left = insert(tree->left, data);
+  } else {
+    tree->right = insert(tree->right, data);
+  }
+  return tree;
 }
 
+NODE *insertAndSplay(NODE *tree, TYPEINFO data) {
+  if (tree == nullptr)
+    return createNode(data);
+  if (tree->value == data) {
+    return splay(tree, data);
+  }
+  if (tree->value > data) {
+    tree->left = splay(tree->left, data);
+  } else {
+    tree->right = splay(tree->right, data);
+  }
+  return splay(tree, data);
+}
 
+void createTree(NODE *&tree) {
+  TYPEINFO data;
+  while (true) {
+    cout << "Enter your data (-99 break): ";
+    cin >> data;
+    if (data == -99)
+      break;
+    tree = insertAndSplay(tree, data);
+  }
+}
 
+void preorder(NODE *tree) {
+  if (tree != nullptr) {
+    cout << tree->value << "\t";
+    preorder(tree->left);
+    preorder(tree->right);
+  }
+}
