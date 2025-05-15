@@ -28,8 +28,10 @@ struct adjacencyMatrix {
 void printVertex(VERTEX v);
 void printArrayVertex(arrayVertex arr);
 void printArrayEdge(arrayEdge arr);
-int readFile(const char *fileName, adjacencyMatrix& mt);
-int writeFile(const char *fileName, adjacencyMatrix& mt);
+int readFile(const char* fileName, adjacencyMatrix& mt);
+int writeFile(const char* fileName, adjacencyMatrix& mt);
 void printAdjacencyMatrix(adjacencyMatrix mt);
 int calDegreeInDirected(adjacencyMatrix mt, int vertex);
 arrayEdge direcredGraphEdge(adjacencyMatrix mt);
+void initMatrix(adjacencyMatrix& mt, int numOfVertex);
+adjacencyMatrix matrixDecoding(arrayEdge& edges, int numOfVertex);

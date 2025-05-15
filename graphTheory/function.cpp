@@ -93,3 +93,28 @@ arrayEdge direcredGraphEdge(adjacencyMatrix mt) {
     }
     return edges;
 }
+
+void initMatrix(adjacencyMatrix& mt, int numOfVertex){
+    for(int i =0; i< numOfVertex; i++){
+        for(int j =0; j<numOfVertex; j++){
+            mt.matrix[i][j] = 0;
+        }
+    }
+}
+//1) Cho số đỉnh và tập cạnh của đồ thị vô hướng. Viết hàm trả về ma trận kề của đồ thị. 
+adjacencyMatrix matrixDecoding(arrayEdge& edges, int numOfVertex){
+    adjacencyMatrix mt;
+    for (int i = 0; i < numOfVertex; i++) {
+        for (int j = 0; j < numOfVertex; j++) {
+            mt.matrix[i][j] = 0;
+        }
+    }
+    for(int i =0; i<edges.count; i++){
+        int u = edges.list[i].origin;
+        int v = edges.list[i].destination;
+        int w = edges.list[i].weight;
+        mt.matrix[u][v] = w;
+        mt.matrix[v][u] = w;
+    }
+    return mt;
+}

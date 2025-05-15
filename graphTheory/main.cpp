@@ -13,16 +13,20 @@ int main() {
         cout << "\n4.Tinh so bac vao cua dinh";
         cout << "\n5.Lay tap canh cua do thi co huong";
         cout << "\nMoi ban chon: ";
+        cout << "\n6: Giai ma danh sach canh"; //Chạy case 1 => 5 => 6
+        cout << endl;
         cin >> choice;
 
         switch (choice) {
         case 1:
             readFile("dothi1.txt", mt);
             printAdjacencyMatrix(mt);
+            cout << "so dinh la " << mt.num;
             break;
         case 2:
             readFile("dothi2.txt", mt);
             printAdjacencyMatrix(mt);
+            cout << "so dinh la " << mt.num;
             break;
         case 3:
             cout << "Ghi file";
@@ -47,10 +51,19 @@ int main() {
                         << edges.list[i].destination << ", " << edges.list[i].weight
                         << ")";
                 }
-                cout << "\n";
-                break;
             }
+            cout << "\n";
+            //
+            break;
+        case 6:
+            edges = direcredGraphEdge(mt);
+            adjacencyMatrix mt1;
+            mt1 = matrixDecoding(edges, mt.num);
+            printAdjacencyMatrix(mt1);
+            //
+            break;
         }
+
     } while (choice != 0);
 
     return 0;
