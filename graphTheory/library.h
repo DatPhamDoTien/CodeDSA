@@ -1,41 +1,34 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+
 using namespace std;
 
-//MAXV: số đỉnh tối đa
 const int MAXV = 20;
-
-//MAXE: số cạnh tối đa
 const int MAXE = MAXV * MAXV;
-
-//VERTEX: kiểu của một đỉnh
 typedef int VERTEX;
-
-//EDGE: kiểu của một cạnh
-struct EDGE{
-	VERTEX org; //origin
-	VERTEX des; //destination
-	int wei;	//weight
+struct EDGE {
+  VERTEX origin;
+  VERTEX destination;
+  int weight;
+};
+struct arrayVertex {
+  VERTEX list[MAXV];
+  int count;
+};
+struct arrayEdge {
+  EDGE list[MAXE];
+  int count;
+};
+struct adjacencyMatrix {
+  int matrix[MAXV][MAXV];
+  int num;
 };
 
-//Array vertex
-struct arrayVertex{
-	VERTEX list[MAXV];
-	int count;
-};
-
-//ArrayEdge
-struct ArrayEdge{
-	EDGE list[MAXE];
-	int count;
-};
-//Ma trận kề của đồ thị (Adjacency-matrix)
-struct AdjacencyMatrix{
-	int matrix[MAXV][MAXV];
-	int n;
-};
-
-
-
-
-
+void printVertex(VERTEX v);
+void printArrayVertex(arrayVertex arr);
+void printArrayEdge(arrayEdge arr);
+int readFile(const char *fileName, adjacencyMatrix& mt);
+int writeFile(const char *fileName, adjacencyMatrix& mt);
+void printAdjacencyMatrix(adjacencyMatrix mt);
+int calDegreeInDirected(adjacencyMatrix mt, int vertex);
+arrayEdge direcredGraphEdge(adjacencyMatrix mt);
