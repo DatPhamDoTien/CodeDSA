@@ -1,93 +1,100 @@
 #include "library.h"
-#include <cstdio>
-#include <stdio.h>
 
-void printVertex(VERTEX ver) { cout << ver; }
 
+// Xuất đỉnh ra màn hình
+void printVertex(VERTEX v) { cout << v; }
 // Xuất cạnh e ra màn hình
-void printEdge(EDGE e) { cout << "(" << e.org << ", " << e.des << ")"; }
+void printEdge(EDGE e) {
+    cout << "(" << e.origin << ", " << e.destination << ")";
+}
+
 // Xuất danh sách đỉnh ra màn hình
-void printArrayVertex(arrayVertex av) {
-  for (int i = 0; i < av.count; i++) {
-    printVertex(av.list[i]);
-    cout << "\t";
-  }
-}
-// Xuất danh sách cạnh ra màn hình
-void printArrayEdge(ArrayEdge ae) {
-  for (int i = 0; i < ae.count; i++) {
-    printEdge(ae.list[i]);
-    cout << "\t";
-  }
-}
-// Đọc file từ văn bản
-int read(char *fileName, AdjacencyMatrix &g) {
-  FILE *f;
-  fopen_s(&f, fileName, "rt");
-  if (f == NULL) {
-    return 0;
-  }
-  fscanf_s(f, "%d", &g.n);
-  for (int i = 0; i < g.n; i++) {
-    for (int j = 0; j < g.n; j++)
-      fscanf_s(f, "%d", &g.matrix[i][j]);
-  }
-  fclose(f);
-  return 1;
-}
-
-// Ghi ma trận kề vào file text
-int write(char *fileName, AdjacencyMatrix g) {
-  FILE *f;
-  fopen_s(&f, fileName, "wt");
-  if (f == NULL) {
-    return 0;
-  }
-  fprintf(f, "%d", g.n);
-  for (int i = 0; i < g.n; i++) {
-    for (int j = 0; i < g.n; j++)
-      fprintf(f, "%d\t", g.matrix[i][j]);
-  }
-  fclose(f);
-  return 1;
-}
-
-void printAdjacencyMaTrix(AdjacencyMatrix g) {
-  cout << "\nGia tri trong file la:";
-  cout << "\n" << g.n << "\n";
-  for (int i = 0; i < g.n; i++) {
-    for (int j = 0; j < g.n; j++)
-      cout << g.matrix[i][j] << " ";
-    cout << "\n";
-  }
-}
-
-// Tính bậc vào của đồ thị có hướng
-int calculatorInDegress(AdjacencyMatrix g, int vertex) {
-  int count;
-  for (int i = 0; i < g.n; i++) {
-    if (g.matrix[i][vertex] != 0) {
-      count++;
+void printArrayVertex(arrayVertex arr) {
+    for (int i = 0; i < arr.count; i++) {
+        cout << "\t";
+        printVertex(arr.list[i]);
     }
-  }
-  return count;
+}
+
+void printArrayEdge(arrayEdge arr) {
+    for (int i = 0; i < arr.count; i++) {
+        cout << "\t";
+        printEdge(*arr.list[i]);
+    }
+}
+
+// Đọc một ma trận kề từ file văn bản.
+int readFile(const char* fileName, adjacencyMatrix& mt) {
+    FILE* f;
+    fopen_s(&f, fileName, "rt");
+    if (f == nullptr) {
+        cout << "\nKhong the mo file";
+        return 0;
+    }
+    fscanf_s(f, "%d", mt.num);
+    for (int i = 0; i < mt.num; i++) {
+        for (int j = 0; j < mt.num; j++) {
+            fscanf_s(f, "%d", mt.matrix[i][j]);
+        }
+    }
+    fclose(f);
+    return 1;
+}
+// Ghi file ma trận kề lên file văn bản
+int writeFile(const char* fileName, adjacencyMatrix& mt) {
+    FILE* f;
+    fopen_s(&f, fileName, "wt");
+    if (f == nullptr) {
+        cout << "\nKhong the mo file";
+        return 0;
+    }
+    fprintf_s(f, "%d", mt.num);
+    for (int i = 0; i < mt.num; i++) {
+        fprintf(f, "\n");
+        for (int j = 0; j < mt.num; j++) {
+            fprintf_s(f, "%d\t", mt.matrix[i][j]);
+        }
+    }
+    fclose(f);
+    return 1;
+}
+
+// Xuất ma trận kề ra màn hình
+void printAdjacencyMatrix(adjacencyMatrix mt) {
+    cout << "Gia tri trong file la: ";
+    cout << "\n" << mt.num << "\n";
+    for (int i = 0; i < mt.num; i++) {
+        for (int j = 0; j < mt.num; j++) {
+            cout << mt.matrix[i][j] << "\t";
+        }
+        cout << "\n";
+    }
+}
+
+// Hàm tính bậc vào của đỉnh trong đồ thị có hướng
+int calDegreeInDirected(adjacencyMatrix mt, int vertex) {
+    int count = 0;
+    for (int i = 0; i < mt.num; i++) {
+        if (mt.matrix[i][vertex] != 0)
+            ++count;
+    }
+    return count;
 }
 
 // Hàm trả về tập cạnh của đồ thị có hướng
-ArrayEdge getEdgeList(AdjacencyMatrix g) {
-  ArrayEdge edges;
-  edges.count = 0;
-  for (int i = 0; i < g.n; i++) {
-    for (int j = 0; j < g.n; j++) {
-      if (g.matrix[i][j] != 0) {
-        EDGE e;
-        e.org = i;
-        e.des = j;
-        e.wei = g.matrix[i][j];
-        edges.list[edges.count++] = e;
-      }
+arrayEdge direcredGraphEdge(adjacencyMatrix mt) {
+    arrayEdge edges;
+    edges.count = 0;
+    for (int i = 0; i < mt.num; i++) {
+        for (int j = 0; j < mt.num; j++) {
+            if (mt.matrix[i][j] != 0) {
+                EDGE e;
+                e.origin = i;
+                e.destination = j;
+                e.weight = mt.matrix[i][j];
+                edges.list[edges.count++] = &e;
+            }
+        }
     }
-  }
-
-  return edges;
+    return edges;
 }
