@@ -19,40 +19,35 @@ void printArrayVertex(arrayVertex arr) {
 void printArrayEdge(arrayEdge arr) {
     for (int i = 0; i < arr.count; i++) {
         cout << "\t";
-        printEdge(*arr.list[i]);
+        printEdge(arr.list[i]);
     }
 }
 
 // Đọc một ma trận kề từ file văn bản.
 int readFile(const char* fileName, adjacencyMatrix& mt) {
-    FILE* f;
-    fopen_s(&f, fileName, "rt");
-    if (f == nullptr) {
-        cout << "\nKhong the mo file";
-        return 0;
+ FILE * f = fopen(fileName, "rt");
+ if(f == nullptr) return 0;
+ fscanf(f, "%d", &mt.num);
+ for(int i =0; i< mt.num; i++){
+    for(int j = 0; j <mt.num; j++){
+        fscanf(f, "%d", &mt.matrix[i][j]);
     }
-    fscanf_s(f, "%d", mt.num);
-    for (int i = 0; i < mt.num; i++) {
-        for (int j = 0; j < mt.num; j++) {
-            fscanf_s(f, "%d", mt.matrix[i][j]);
-        }
-    }
-    fclose(f);
-    return 1;
+ }
+ fclose(f);
+ return 1;
 }
 // Ghi file ma trận kề lên file văn bản
 int writeFile(const char* fileName, adjacencyMatrix& mt) {
-    FILE* f;
-    fopen_s(&f, fileName, "wt");
+    FILE* f = fopen(fileName, "wt");
     if (f == nullptr) {
         cout << "\nKhong the mo file";
         return 0;
     }
-    fprintf_s(f, "%d", mt.num);
+    fprintf(f, "%d", mt.num);
     for (int i = 0; i < mt.num; i++) {
         fprintf(f, "\n");
         for (int j = 0; j < mt.num; j++) {
-            fprintf_s(f, "%d\t", mt.matrix[i][j]);
+            fprintf(f, "%d\t", mt.matrix[i][j]);
         }
     }
     fclose(f);
@@ -92,7 +87,7 @@ arrayEdge direcredGraphEdge(adjacencyMatrix mt) {
                 e.origin = i;
                 e.destination = j;
                 e.weight = mt.matrix[i][j];
-                edges.list[edges.count++] = &e;
+                edges.list[edges.count++] = e;
             }
         }
     }

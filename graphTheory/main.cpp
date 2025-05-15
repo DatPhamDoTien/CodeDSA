@@ -5,7 +5,7 @@ int main() {
     adjacencyMatrix mt;
     arrayEdge edges;
     do {
-        cout << "=================";
+        cout << "\n=================";
         cout << "\n0.Ket thuc";
         cout << "\n1.Doc file do thi vo huong";
         cout << "\n2.Doc file do thi co huong";
@@ -43,8 +43,8 @@ int main() {
             else {
                 cout << "\nTap canh cua do thi: ";
                 for (int i = 0; i < edges.count; i++) {
-                    cout << "\n(" << edges.list[i]->origin << " - "
-                        << edges.list[i]->destination << ", " << edges.list[i]->weight
+                    cout << "\n(" << edges.list[i].origin << " - "
+                        << edges.list[i].destination << ", " << edges.list[i].weight
                         << ")";
                 }
                 cout << "\n";

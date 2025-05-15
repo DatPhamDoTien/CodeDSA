@@ -1,6 +1,7 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
 
+#include <iostream>
+#include <fstream>
+#include <cstdio>
 using namespace std;
 
 const int MAXV = 20;
