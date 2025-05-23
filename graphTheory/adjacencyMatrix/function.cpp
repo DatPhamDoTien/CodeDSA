@@ -179,11 +179,11 @@ adjacencyMatrix redirectMatrix(adjacencyMatrix &mt) {
 // đỉnh xuất phát v và xuất ra màn hình thứ tự các đỉnh duyệt được.
 arrayVertex breadthFirstSearch(adjacencyMatrix mt, VERTEX v) {
   arrayVertex arr;
-  arr.count = 0;
   if (v < 0 || v >= mt.num) {
     cout << "\nDinh khong hop le!";
     return arr;
   }
+  arr.count = 0;
   queue<int> listOfVer;
   bool visited[MAXV] = {false};
   listOfVer.push(v);
