@@ -206,6 +206,7 @@ arrayVertex breadthFirstSearch(adjacencyMatrix mt, VERTEX v) {
 
 // 6) Cho ma trận kề của đồ thị. Viết hàm duyệt đồ thị theo chiều sâu (DFS) với
 // đỉnh xuất phát v và xuất ra màn hình thứ tự các đỉnh duyệt được.
+
 void DFSUtil(const adjacencyMatrix &mt, VERTEX v, bool visited[],
              arrayVertex &result) {
   visited[v] = true;
