@@ -204,19 +204,19 @@ arrayVertex breadthFirstSearch(adjacencyMatrix mt, VERTEX v) {
   return arr;
 }
 
-// 6) Cho ma trận kề của đồ thị. Viết hàm duyệt đồ thị theo chiều sâu (DFS) với đỉnh
-// xuất phát v và xuất ra màn hình thứ tự các đỉnh duyệt được.
-void DFSUtil(const adjacencyMatrix& mt, VERTEX v, bool visited[], arrayVertex& result){
+// 6) Cho ma trận kề của đồ thị. Viết hàm duyệt đồ thị theo chiều sâu (DFS) với
+// đỉnh xuất phát v và xuất ra màn hình thứ tự các đỉnh duyệt được.
+void DFSUtil(const adjacencyMatrix &mt, VERTEX v, bool visited[],
+             arrayVertex &result) {
   visited[v] = true;
   result.list[result.count++] = v;
-  for(int i =0; i<mt.num;i++){
-    if(mt.matrix[v][i]!=0 && !visited[i]){
-      DFSUtil(mt,i,visited, result);
-    } 
+  for (int i = 0; i < mt.num; i++) {
+    if (mt.matrix[v][i] != 0 && !visited[i]) {
+      DFSUtil(mt, i, visited, result);
+    }
   }
 }
-
-arrayVertex depthFirstSearch(const adjacencyMatrix& mt, VERTEX start){
+arrayVertex depthFirstSearch(const adjacencyMatrix &mt, VERTEX start) {
   bool visited[MAXV] = {false};
   arrayVertex result;
   result.count = 0;
