@@ -44,3 +44,6 @@ VERTEX findLightestVertex(adjacencyMatrix mt, VERTEX verU);
 adjacencyMatrix redirectMatrix(adjacencyMatrix& mt);
 //Bài 5
 arrayVertex breadthFirstSearch(adjacencyMatrix mt, VERTEX v);
+//Bài 6
+void DFSUtil(const adjacencyMatrix& mt, VERTEX v, bool visited[], arrayVertex& result);
+arrayVertex depthFirstSearch(const adjacencyMatrix& mt, VERTEX start);

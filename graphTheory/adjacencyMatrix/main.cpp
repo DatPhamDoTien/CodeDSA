@@ -5,6 +5,8 @@ int main() {
   adjacencyMatrix mt;
   arrayEdge edges;
   adjacencyMatrix mt1;
+  VERTEX v;
+  arrayVertex arrVer;
   do {
     cout << "\n=================";
     cout << "\n0.Ket thuc";
@@ -19,6 +21,7 @@ int main() {
     cout << "\n8: Tim dinh ke co trong so nho nhat";
     cout << "\n9: Doi huong do thi";
     cout << "\n10: Duyet do thi theo chieu rong:";
+    cout << "\n11: Duyet do thi theo chieu sau:";
 
     cout << endl;
     cin >> choice;
@@ -90,12 +93,19 @@ int main() {
       break;
 
     case 10:
-      VERTEX v;
+
       cout << "\nNhap dinh bat dau: ";
       cin >> v;
-      arrayVertex arrVer = breadthFirstSearch(mt, v);
+      arrVer = breadthFirstSearch(mt, v);
       for (int i = 0; i < arrVer.count; i++) {
-        cout << arrVer.list[i]<< "\t";
+        cout << arrVer.list[i] << "\t";
+      }
+    case 11:
+      cout << "\nNhap dinh bat dau: ";
+      cin >> v;
+      arrVer = depthFirstSearch(mt, v);
+      for (int i = 0; i < arrVer.count; i++) {
+        cout << arrVer.list[i] << "\t";
       }
     }
   } while (choice != 0);
