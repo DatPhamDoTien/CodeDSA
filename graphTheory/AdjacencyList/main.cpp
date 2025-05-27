@@ -55,7 +55,10 @@ int main() {
       break;
     default:
       break;
+    case 7:
+      break;
     }
+
     cout << endl;
     system("pause");
   } while (choice != 0);
