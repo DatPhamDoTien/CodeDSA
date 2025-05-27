@@ -142,3 +142,26 @@ void countDowload() {
 
 // 1) Cho số đỉnh và tập cạnh của đồ thị vô hướng.
 //  Viết hàm trả về danh sách kề của đồ thị.
+AdjacencyList builtAdjacencyList(EdgeList eList, int numOfVer) {
+  AdjacencyList adjList;
+  adjList.count = numOfVer;
+  for (int i = 0; i < eList.count; i++) {
+    adjList.list[i] = nullptr;
+  }
+  for (int i = 0; i < eList.count; i++) {
+    int u = eList.list[i].from;
+    int v = eList.list[i].to;
+    int w = eList.list[i].weight;
+
+    NODE *node1 = new NODE;
+    node1->adjacentVertex = v;
+    node1->weight = w;
+    node1->next = adjList.list[u];
+
+    NODE *node2 = new NODE;
+    node2->adjacentVertex = u;
+    node2->weight = w;
+    node2->next = adjList.list[v];
+  }
+  return adjList;
+}
