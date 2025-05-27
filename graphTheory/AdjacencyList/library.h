@@ -8,6 +8,7 @@ using namespace std;
 
 const int MAXV = 15;          // so dinh toi da
 const int MAXE = MAXV * MAXV; // so canh toi da
+
 struct NODE {
   int adjacentVertex;
   int weight = 0;
@@ -41,3 +42,4 @@ int calcutaleInDegrees(AdjacencyList list, int vertex);
 void DowLoad(int index);
 void countDowload();
 //Bai 1
+AdjacencyList builtAdjacencyList(EdgeList eList, int numOfVer);

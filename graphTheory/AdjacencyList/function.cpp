@@ -1,24 +1,23 @@
 #include "library.h"
 
-int readFile(const char* fileName, AdjacencyList& list, int flag) {
-  FILE* f = fopen(fileName, "rt");
+int readFile(const char *fileName, AdjacencyList &list, int flag) {
+  FILE *f = fopen(fileName, "rt");
   if (f == nullptr)
     return 0;
   fscanf(f, "%d", &list.count);
 
   for (int i = 0; i < list.count; i++) {
-    list.list[i] = { NULL };
+    list.list[i] = {NULL};
   }
 
   for (int i = 0; i < list.count; i++) {
     int qty; // Số lượng đỉnh kề
     fscanf(f, "%d", &qty);
     for (int j = 0; j < qty; j++) {
-      NODE* newNode = new NODE;
+      NODE *newNode = new NODE;
       if (flag) {
         fscanf(f, "%d%d", &newNode->adjacentVertex, &newNode->weight);
-      }
-      else {
+      } else {
         fscanf(f, "%d", &newNode->adjacentVertex);
       }
       newNode->next = list.list[i];
@@ -29,7 +28,7 @@ int readFile(const char* fileName, AdjacencyList& list, int flag) {
   return 1;
 }
 
-int countNode(NODE* node) {
+int countNode(NODE *node) {
   int count = 0;
   while (node != nullptr) {
     ++count;
@@ -38,20 +37,19 @@ int countNode(NODE* node) {
   return count;
 }
 
-int writeFile(const char* fileName, AdjacencyList& list, int flag) {
-  FILE* f = fopen(fileName, "wt");
+int writeFile(const char *fileName, AdjacencyList &list, int flag) {
+  FILE *f = fopen(fileName, "wt");
   if (f == nullptr)
     return 0;
   fprintf(f, "%d", list.count);
   for (int i = 0; i < list.count; i++) {
-    NODE* node = list.list[i];
+    NODE *node = list.list[i];
     int qty = countNode(node);
     fprintf(f, "\n%d", qty);
     while (node != nullptr) {
       if (flag) {
         fprintf(f, "%d %d", node->adjacentVertex, node->weight);
-      }
-      else {
+      } else {
         fprintf(f, "%d", node->adjacentVertex);
       }
       node = node->next;
@@ -61,11 +59,11 @@ int writeFile(const char* fileName, AdjacencyList& list, int flag) {
   return 1;
 }
 
-void deleteAdjacencyList(AdjacencyList& list) {
+void deleteAdjacencyList(AdjacencyList &list) {
   for (int i = 0; i < list.count; i++) {
-    NODE* p = list.list[i];
+    NODE *p = list.list[i];
     while (p != nullptr) {
-      NODE* q = p;
+      NODE *q = p;
       p = p->next;
       delete q;
     }
@@ -73,12 +71,12 @@ void deleteAdjacencyList(AdjacencyList& list) {
   }
 }
 
-void printAdjacencyList(const AdjacencyList& list) {
+void printAdjacencyList(const AdjacencyList &list) {
   cout << endl;
   for (int i = 0; i < list.count; i++) {
     cout << endl;
     cout << i << ": ";
-    NODE* current = list.list[i];
+    NODE *current = list.list[i];
     while (current != nullptr) {
       cout << "(" << current->adjacentVertex << ", " << current->weight << ")";
       current = current->next;
@@ -89,13 +87,11 @@ void printAdjacencyList(const AdjacencyList& list) {
 EdgeList takeListOfEdge(AdjacencyList list) {
   EdgeList dec;
   for (int i = 0; i < list.count; i++) {
-    NODE* current = list.list[i];
+    NODE *current = list.list[i];
     while (current != nullptr) {
-      EDGE e;
-      e.from = i;
-      e.to = current->adjacentVertex;
-      e.weight = current->weight;
+      EDGE e = {i, current->adjacentVertex, current->weight};
       dec.list[dec.count++] = e;
+      current = current->next;
     }
   }
   return dec;
@@ -108,7 +104,7 @@ void printEdge(EDGE edge) {
 int calcutaleInDegrees(AdjacencyList list, int vertex) {
   int count = 0;
   for (int i = 0; i < list.count; i++) {
-    NODE* current = list.list[i];
+    NODE *current = list.list[i];
     while (current != nullptr) {
       if (current->adjacentVertex = vertex) {
         count++;
@@ -135,24 +131,34 @@ void countDowload() {
   for (int i = 1; i <= num; i++) {
     threads.emplace_back(DowLoad, i);
   }
-  for (auto& thread : threads) {
+  for (auto &thread : threads) {
     thread.join();
   }
   cout << "All completed!\n";
 }
 
-//1) Cho số đỉnh và tập cạnh của đồ thị vô hướng.
-// Viết hàm trả về danh sách kề của đồ thị.
+// 1) Cho số đỉnh và tập cạnh của đồ thị vô hướng.
+//  Viết hàm trả về danh sách kề của đồ thị.
+AdjacencyList builtAdjacencyList(EdgeList eList, int numOfVer) {
+  AdjacencyList adjList;
+  adjList.count = numOfVer;
+  for (int i = 0; i < eList.count; i++) {
+    adjList.list[i] = nullptr;
+  }
+  for (int i = 0; i < eList.count; i++) {
+    int u = eList.list[i].from;
+    int v = eList.list[i].to;
+    int w = eList.list[i].weight;
 
-//Khoi tao danh sach ke nulll
+    NODE *node1 = new NODE;
+    node1->adjacentVertex = v;
+    node1->weight = w;
+    node1->next = adjList.list[u];
 
-// AdjacencyList getAdjacencyList(const EdgeList& eList, int numOfVer) {
-//   AdjacencyList vList;
-//   //1. Khoi tao danh sach rong
-//   vList.count = numOfVer;
-//   for (int i = 0; i < vList.count; i++) {
-//     vList.list[i] = { nullptr };
-//   }
-//   for(int i =0; i<eList.count; i++){
-//   }
-// }
+    NODE *node2 = new NODE;
+    node2->adjacentVertex = u;
+    node2->weight = w;
+    node2->next = adjList.list[v];
+  }
+  return adjList;
+}
