@@ -1,7 +1,9 @@
 #include "library.h"
 
 // XuấtJ đỉnh ra màn hình
-void printVertex(VERTEX v) { cout << v; }
+void printVertex(VERTEX v) { 
+  cout << v; 
+}
 // Xuất cạnh e ra màn hình
 void printEdge(EDGE e) {
   cout << "(" << e.origin << ", " << e.destination << ")";
