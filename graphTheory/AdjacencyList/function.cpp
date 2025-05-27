@@ -154,11 +154,37 @@ AdjacencyList builtAdjacencyList(EdgeList eList, int numOfVer) {
     node1->adjacentVertex = v;
     node1->weight = w;
     node1->next = adjList.list[u];
+    adjList.list[u] = node1;
 
     NODE *node2 = new NODE;
     node2->adjacentVertex = u;
     node2->weight = w;
     node2->next = adjList.list[v];
+    adjList.list[v] = node2;
+  }
+  return adjList;
+}
+
+// 2) Cho số đỉnh và tập cạnh của đồ thị có hướng. Viết hàm trả về danh sách kề
+// của đồ thị.
+AdjacencyList buildDirectedAdjList(EdgeList eList, int numOfVer) {
+  AdjacencyList adjList;
+  adjList.count = numOfVer;
+  // Khởi tạo tất cả danh sách kề rỗng
+  for (int i = 0; i < numOfVer; ++i) {
+    adjList.list[i] = nullptr;
+  }
+  // Duyệt qua từng cạnh
+  for (int i = 0; i < eList.count; ++i) {
+    int u = eList.list[i].from;
+    int v = eList.list[i].to;
+    int w = eList.list[i].weight;
+    // Thêm v vào danh sách kề của u (chỉ 1 chiều vì đồ thị có hướng)
+    NODE *node = new NODE;
+    node->adjacentVertex = v;
+    node->weight = w;
+    node->next = adjList.list[u];
+    adjList.list[u] = node;
   }
   return adjList;
 }
