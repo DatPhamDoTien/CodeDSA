@@ -40,3 +40,4 @@ void printEdge(EDGE edge);
 int calcutaleInDegrees(AdjacencyList list, int vertex);
 void DowLoad(int index);
 void countDowload();
+//Bai 1
