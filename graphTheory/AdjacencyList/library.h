@@ -11,11 +11,11 @@ const int MAXE = MAXV * MAXV; // so canh toi da
 struct NODE {
   int adjacentVertex;
   int weight = 0;
-  NODE *next;
+  NODE* next;
 };
 
 struct AdjacencyList {
-  NODE *list[MAXV];
+  NODE* list[MAXV];
   int count = 0;
 };
 
@@ -30,11 +30,11 @@ struct EdgeList {
   int count = 0;
 };
 
-int readFile(const char *fileName, AdjacencyList &list, int flag);
-int countNode(NODE *node);
-int writeFile(const char *fileName, AdjacencyList &list, int flag);
-void deleteAdjacencyList(AdjacencyList &list);
-void printAdjacencyList(const AdjacencyList &list);
+int readFile(const char* fileName, AdjacencyList& list, int flag);
+int countNode(NODE* node);
+int writeFile(const char* fileName, AdjacencyList& list, int flag);
+void deleteAdjacencyList(AdjacencyList& list);
+void printAdjacencyList(const AdjacencyList& list);
 EdgeList takeListOfEdge(AdjacencyList list);
 void printEdge(EDGE edge);
 int calcutaleInDegrees(AdjacencyList list, int vertex);

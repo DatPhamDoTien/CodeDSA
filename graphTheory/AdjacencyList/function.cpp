@@ -126,10 +126,10 @@ void DowLoad(int index) {
   auto end = chrono::high_resolution_clock::now();
   chrono::duration<double> elapsed = end - start;
   lock_guard<mutex> lock(cout_mutex);
-  std::cout <<" Write in " << elapsed.count() << " second.\n";
+  std::cout << "Write in " << elapsed.count() << " second.\n";
 }
 
-void countDowload(){
+void countDowload() {
   int num = 3;
   vector<std::thread> threads;
   for (int i = 1; i <= num; i++) {
