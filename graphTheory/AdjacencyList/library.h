@@ -1,5 +1,9 @@
 #define _CRT_SECURE_NO_WARINGS
 #include <iostream>
+#include <thread>
+#include <vector>
+#include<chrono>
+#include<mutex>
 using namespace std;
 
 const int MAXV = 15;          // so dinh toi da
@@ -34,3 +38,5 @@ void printAdjacencyList(const AdjacencyList &list);
 EdgeList takeListOfEdge(AdjacencyList list);
 void printEdge(EDGE edge);
 int calcutaleInDegrees(AdjacencyList list, int vertex);
+void DowLoad(int index);
+void countDowload();
