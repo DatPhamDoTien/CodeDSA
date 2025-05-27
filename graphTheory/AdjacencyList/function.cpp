@@ -114,6 +114,9 @@ int calcutaleInDegrees(AdjacencyList list, int vertex) {
   }
   return count;
 }
+
+
+
 mutex cout_mutex;
 void DowLoad(int index) {
   auto start = chrono::high_resolution_clock::now();
