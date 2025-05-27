@@ -2,7 +2,7 @@
 
 int main() {
   int choice, flag, vertex, qty;
-  AdjacencyList list;
+  AdjacencyList list, vList;
   EdgeList edges;
   do {
     system("cls");
@@ -13,6 +13,7 @@ int main() {
     cout << "\n3.Ghi file";
     cout << "\n4.Tinh so bac vao cua dinh";
     cout << "\n5.Lay tap canh cua do thi";
+    cout << "\n6: Tra ve danh sach ke cua do thi";
     cout << endl;
     cout << "Nhap luu chon cua ban: ";
     cin >> choice;
@@ -45,11 +46,13 @@ int main() {
     case 5:
       edges = takeListOfEdge(list);
       for (int i = 0; i < edges.count; i++) {
-        // cout << "(" << edges.list[i].from << "-" << edges.list[i].to << ", "
-        // << edges.list[i].weight << ")" << endl;
-        printEdge(edges.list[i]);
-        cout << endl;
+        cout << "(" << edges.list[i].from << "-" << edges.list[i].to << ", "
+             << edges.list[i].weight << ")" << endl;
       }
+    case 6:
+      vList = builtAdjacencyList(edges, list.count);
+      printAdjacencyList(list);
+      break;
     default:
       break;
     }
