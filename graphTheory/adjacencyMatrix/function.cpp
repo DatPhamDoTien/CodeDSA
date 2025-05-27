@@ -147,7 +147,7 @@ VERTEX findLightestVertex(adjacencyMatrix mt, VERTEX verU) {
     return 0;
   }
   VERTEX vertex;
-  int minWei = INT_MAX;
+  int minWei = 9999999;
   for (int i = 0; i < mt.num; i++) {
     if (i == verU)
       continue;

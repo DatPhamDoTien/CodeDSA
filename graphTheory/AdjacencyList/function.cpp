@@ -140,3 +140,19 @@ void countDowload() {
   }
   cout << "All completed!\n";
 }
+
+//1) Cho số đỉnh và tập cạnh của đồ thị vô hướng.
+// Viết hàm trả về danh sách kề của đồ thị.
+
+//Khoi tao danh sach ke nulll
+
+// AdjacencyList getAdjacencyList(const EdgeList& eList, int numOfVer) {
+//   AdjacencyList vList;
+//   //1. Khoi tao danh sach rong
+//   vList.count = numOfVer;
+//   for (int i = 0; i < vList.count; i++) {
+//     vList.list[i] = { nullptr };
+//   }
+//   for(int i =0; i<eList.count; i++){
+//   }
+// }

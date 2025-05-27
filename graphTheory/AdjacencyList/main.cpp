@@ -3,6 +3,7 @@
 int main() {
   int choice, flag, vertex, qty;
   AdjacencyList list;
+  EdgeList edges;
   do {
     cout << "\n===================================";
     cout << "\n0.Ket thuc";
@@ -40,6 +41,11 @@ int main() {
       cin >> vertex;
       qty = calcutaleInDegrees(list, vertex);
       cout << "Bac vao cua dinh " << vertex << " la: " << qty << endl;
+    case 5:
+      edges = takeListOfEdge(list);
+      for (int i = 0; i < edges.count; i++) {
+        cout << "(" << edges.list[i].from << "-" << edges.list[i].to << ", " << edges.list[i].weight << ")" << endl;
+      }
     default:
       break;
     }
