@@ -27,10 +27,12 @@ int main() {
 
     case 3:
       cout << "\nChon che do ghi: \n0: ghi file khong trong so.\n1: Ghi file "
-              "co trong so\n";
+        "co trong so\n";
       cout << "\nChoice: ";
       cin >> flag;
-      cout << "Dang ghi.....";
+      cout << "Dang ghi....." << endl;
+      countDowload();
+      cout << "Da ghi xong!";
       writeFile("dothi3.txt", list, flag);
       break;
     case 4:
