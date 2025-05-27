@@ -55,8 +55,6 @@ int main() {
       break;
     default:
       break;
-    case 7:
-      break;
     }
 
     cout << endl;
