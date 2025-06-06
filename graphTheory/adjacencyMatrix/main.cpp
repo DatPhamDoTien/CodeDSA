@@ -2,9 +2,8 @@
 
 int main() {
   int choice, vertex;
-  adjacencyMatrix mt;
+  adjacencyMatrix mt, mt1;
   arrayEdge edges;
-  adjacencyMatrix mt1;
   VERTEX v;
   arrayVertex arrVer;
   do {
@@ -26,6 +25,7 @@ int main() {
     cout << "\n12: Kiem tra do thi lien thong";
     cout << "\n13: BFS tra ve danh sach dinh va danh sach canh";
     cout << "\n14: BFS kiem tra do thi lien thong manh hay yeu";
+    cout << "\n15: Sap xep topo";
 
     cout << "\nNhap lua chon cua ban: ";
     cin >> choice;
@@ -138,6 +138,17 @@ int main() {
           cout << "\nDo thi lien thong manh";
         } else {
           cout << "\nDo thi lien thong yeu";
+        }
+        break;
+      }
+      case 15: {
+        readFile("dothi4.txt", mt);  // dothi4.txt la do thi khong co chu trinh
+        arrVer = topoSort(mt);
+        if (arrVer.count < mt.num) {
+          cout << "\nDo thi co chu trinh, khong the sap xep topo!";
+        } else {
+          cout << "\nThu tu di khi sap xep topo la: ";
+          printArrayVertex(arrVer);
         }
         break;
       }

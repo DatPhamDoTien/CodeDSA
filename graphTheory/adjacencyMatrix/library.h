@@ -30,7 +30,7 @@ void printArrayEdge(arrayEdge arr);
 int readFile(const char *fileName, adjacencyMatrix &mt);
 int writeFile(const char *fileName, adjacencyMatrix &mt);
 void printAdjacencyMatrix(adjacencyMatrix mt);
-int calDegreeInDirected(adjacencyMatrix mt, int vertex);
+int calDegreeInDirected(adjacencyMatrix mt, VERTEX vertex);
 arrayEdge direcredGraphEdge(adjacencyMatrix mt);
 // bài tập tổng hợp.
 // Bài 1
@@ -64,3 +64,4 @@ void DFS_recursive(const adjacencyMatrix &mt, VERTEX v, bool visited[], arrayVer
 
 bool checkGraphConnected(const adjacencyMatrix &mt);
 bool checkStrongGraphConnected(const adjacencyMatrix &mt);
+arrayVertex topoSort(adjacencyMatrix mt);

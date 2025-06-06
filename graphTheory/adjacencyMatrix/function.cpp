@@ -14,7 +14,6 @@ void printArrayVertex(arrayVertex arr) {
   for (int i = 0; i < arr.count; i++) {
     cout << "\t";
     printVertex(arr.list[i]);
-
   }
 }
 
@@ -70,7 +69,7 @@ void printAdjacencyMatrix(adjacencyMatrix mt) {
 }
 
 // Hàm tính bậc vào của đỉnh trong đồ thị có hướng
-int calDegreeInDirected(adjacencyMatrix mt, int vertex) {
+int calDegreeInDirected(adjacencyMatrix mt, VERTEX vertex) {
   int count = 0;
   for (int i = 0; i < mt.num; i++) {
     if (mt.matrix[i][vertex] != 0) ++count;
@@ -385,10 +384,51 @@ bool checkStrongGraphConnected(const adjacencyMatrix &mt) {
     bool visited[MAXV] = {false};
     arr.count = 0;
     depthFirstSearch(mt, start, visited, arr);
-    if(arr.count < mt.num){
+    if (arr.count < mt.num) {
       strongConnected = false;
       break;
     }
   }
   return strongConnected;
+}
+
+// 9) Cho ma trận kề của đồ thị có hướng. Viết hàm trả về tập đỉnh của đồ thị đã được sắp xếp Topo.
+// calDegreeInDirected hàm dùng để tính bậc vào của đồ thị có hướng
+arrayVertex topoSort(adjacencyMatrix mt) {
+  queue<int> listOfVer;
+  arrayVertex arr;
+  arr.count = 0;
+  int inDegree[MAXV] = {0};
+  // Tính bậc vào cho từng đỉnh
+  for (int i = 0; i < mt.num; ++i) {
+    for (int j = 0; j < mt.num; ++j) {
+      if (mt.matrix[j][i] != 0) {
+        inDegree[i]++;
+      }
+    }
+  }
+  // Đưa các đỉnh có bậc vào 0 vào queue
+  for (int i = 0; i < mt.num; ++i) {
+    if (inDegree[i] == 0) {
+      listOfVer.push(i);
+    }
+  }
+  while (!listOfVer.empty()) {
+    VERTEX current = listOfVer.front();
+    listOfVer.pop();
+    if (arr.count < MAXV) {
+      arr.list[arr.count++] = current;
+    }
+    for (int i = 0; i < mt.num; i++) {
+      if (mt.matrix[current][i] != 0) {
+        // Xóa cạnh current -> i
+        mt.matrix[current][i] = 0;
+        inDegree[i]--;
+        if (inDegree[i] == 0) {
+          listOfVer.push(i);
+        }
+      }
+    }
+  }
+  return arr;
 }
