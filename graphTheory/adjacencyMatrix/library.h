@@ -51,8 +51,16 @@ arrayVertex depthFirstSearch(const adjacencyMatrix &mt, VERTEX start);
 // 4/ Bài tập làm thêm:
 
 arrayVertex BFS(adjacencyMatrix mt, VERTEX v);
+
 void BFS_Traversal(adjacencyMatrix mt, VERTEX v, arrayVertex &arr, arrayEdge &edges);
+
+void DFS_fullGraph(adjacencyMatrix mt, arrayVertex &av, arrayEdge &ae);
+
 void depthFirstSearch(const adjacencyMatrix &mt, VERTEX v, bool visited[], arrayVertex &result);
 arrayVertex DFS(adjacencyMatrix mt, VERTEX v);
+
 void DFS_visitOrder(adjacencyMatrix mt, VERTEX v, arrayVertex &vertexes, arrayEdge &edges);
 void DFS_recursive(const adjacencyMatrix &mt, VERTEX v, bool visited[], arrayVertex &vertexes, arrayEdge &edges);
+
+bool checkGraphConnected(const adjacencyMatrix &mt);
+bool checkStrongGraphConnected(const adjacencyMatrix &mt);

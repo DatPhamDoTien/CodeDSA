@@ -14,6 +14,7 @@ void printArrayVertex(arrayVertex arr) {
   for (int i = 0; i < arr.count; i++) {
     cout << "\t";
     printVertex(arr.list[i]);
+
   }
 }
 
@@ -228,7 +229,7 @@ arrayVertex BFS(adjacencyMatrix mt, VERTEX v) {
   arrayVertex arr;
   if (v < 0 || v > mt.num) {
     cout << "Dinh khong hop le";
-    return;
+    return arr;
   }
   arr.count = 0;
   queue<int> listOfver;
@@ -286,6 +287,16 @@ void BFS_Traversal(adjacencyMatrix mt, VERTEX v, arrayVertex &arr, arrayEdge &ed
 // 3) Cho ma trận kề của đồ thị. Viết hàm duyệt đồ thị theo chiều rộng (BFS).
 // Thứ tự các đỉnh viếng thăm chứa vào tập đỉnh av và thứ tự các cạnh viếng thăm
 // chứa vào chứa vào tập cạnh ae.
+void BFS_fullGraph(adjacencyMatrix mt, arrayVertex &av, arrayEdge &ae) {
+  bool visited[MAXV] = {false};
+  av.count = 0;
+  ae.count = 0;
+  for (int i = 0; i < mt.num; i++) {
+    if (!visited[i]) {
+      BFS_Traversal(mt, i, av, ae);
+    }
+  }
+}
 
 // 4) Cho ma trận kề của đồ thị. Viết hàm duyệt đồ thị theo chiều sâu (DFS) và
 // xuất ra màn hình thứ tự các đỉnh duyệt được.
@@ -335,4 +346,49 @@ void DFS_recursive(const adjacencyMatrix &mt, VERTEX v, bool visited[], arrayVer
       DFS_recursive(mt, i, visited, vertexes, edges);
     }
   }
+}
+
+// 6) Cho ma trận kề của đồ thị. Viết hàm duyệt đồ thị theo chiều sâu (DFS). Thứ tự các
+// đỉnh viếng thăm chứa vào tập đỉnh av và thứ tự các cạnh viếng thăm chứa vào chứa
+// vào tập cạnh ae.
+
+void DFS_fullGraph(adjacencyMatrix mt, arrayVertex &av, arrayEdge &ae) {
+  bool visited[MAXV] = {false};
+  av.count = 0;
+  ae.count = 0;
+  for (int v = 0; v < mt.num; ++v) {
+    if (!visited[v]) {
+      DFS_recursive(mt, v, visited, av, ae);
+    }
+  }
+}
+
+// 7) Cho ma trận kề của đồ thị vô hướng. Viết hàm trả về một số nguyên là số thành
+// phần liên thông của đồ thị.
+bool checkGraphConnected(const adjacencyMatrix &mt) {
+  bool visited[MAXV] = {false};
+  arrayVertex arr;
+  arr.count = 0;
+  for (int i = 0; i < mt.num; i++) {
+    if (!visited[i]) {
+      depthFirstSearch(mt, i, visited, arr);
+    }
+  }
+  return arr.count == mt.num ? true : false;
+}
+
+// 8) Cho danh sách kề của đồ thị có hướng. Viết hàm kiểm tra đồ thị có liên thông mạnh hay không.
+bool checkStrongGraphConnected(const adjacencyMatrix &mt) {
+  bool strongConnected = true;
+  for (int start = 0; start < mt.num; ++start) {
+    arrayVertex arr;
+    bool visited[MAXV] = {false};
+    arr.count = 0;
+    depthFirstSearch(mt, start, visited, arr);
+    if(arr.count < mt.num){
+      strongConnected = false;
+      break;
+    }
+  }
+  return strongConnected;
 }

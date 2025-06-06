@@ -8,6 +8,7 @@ int main() {
   VERTEX v;
   arrayVertex arrVer;
   do {
+    system("cls");
     cout << "\n=================";
     cout << "\n0.Ket thuc";
     cout << "\n1.Doc file do thi vo huong";
@@ -22,8 +23,11 @@ int main() {
     cout << "\n9: Doi huong do thi";
     cout << "\n10: Duyet do thi theo chieu rong:";
     cout << "\n11: Duyet do thi theo chieu sau:";
+    cout << "\n12: Kiem tra do thi lien thong";
+    cout << "\n13: BFS tra ve danh sach dinh va danh sach canh";
+    cout << "\n14: BFS kiem tra do thi lien thong manh hay yeu";
 
-    cout << endl;
+    cout << "\nNhap lua chon cua ban: ";
     cin >> choice;
 
     switch (choice) {
@@ -89,22 +93,57 @@ int main() {
         //
         break;
 
-      case 10:
-
+      case 10: {
         cout << "\nNhap dinh bat dau: ";
         cin >> v;
         arrVer = breadthFirstSearch(mt, v);
         for (int i = 0; i < arrVer.count; i++) {
           cout << arrVer.list[i] << "\t";
         }
-      case 11:
+        break;
+      }
+      case 11: {
         cout << "\nNhap dinh bat dau: ";
         cin >> v;
         arrVer = depthFirstSearch(mt, v);
         for (int i = 0; i < arrVer.count; i++) {
           cout << arrVer.list[i] << "\t";
         }
+        break;
+      }
+      case 12: {
+        bool result = checkGraphConnected(mt);
+        if (result) {
+          cout << "\nDo thi lien thong!";
+        } else {
+          cout << "\nDo thi khong lien thong";
+        }
+        break;
+      }
+      case 13: {
+        arrayEdge edges;
+        arrayVertex vertexes;
+        cout << "\nNhap dinh bat dau: ";
+        cin >> v;
+        BFS_Traversal(mt, v, vertexes, edges);
+        cout << "\nDanh sach dinh la: \n";
+        printArrayVertex(vertexes);
+        cout << "\nDanh sach canh la: \n";
+        printArrayEdge(edges);
+        break;
+      }
+      case 14: {
+        bool result = checkStrongGraphConnected(mt);
+        if (result) {
+          cout << "\nDo thi lien thong manh";
+        } else {
+          cout << "\nDo thi lien thong yeu";
+        }
+        break;
+      }
     }
+    cout << endl;
+    system("pause");
   } while (choice != 0);
   return 0;
 }
