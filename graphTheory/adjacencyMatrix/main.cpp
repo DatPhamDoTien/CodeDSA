@@ -16,7 +16,7 @@ int main() {
     cout << "\n4.Tinh so bac vao cua dinh";
     cout << "\n5.Lay tap canh cua do thi co huong";
     cout << "\nMoi ban chon: ";
-    cout << "\n6: Giai do thi vo huong"; // Chạy case 1 => 5 => 6
+    cout << "\n6: Giai do thi vo huong";  // Chạy case 1 => 5 => 6
     cout << "\n7: Gia ma do thi co huong";
     cout << "\n8: Tim dinh ke co trong so nho nhat";
     cout << "\n9: Doi huong do thi";
@@ -27,86 +27,83 @@ int main() {
     cin >> choice;
 
     switch (choice) {
-    case 1:
-      readFile("dothi1.txt", mt);
-      printAdjacencyMatrix(mt);
-      cout << "so dinh la " << mt.num;
-      break;
-    case 2:
-      readFile("dothi2.txt", mt);
-      printAdjacencyMatrix(mt);
-      cout << "so dinh la " << mt.num;
-      break;
-    case 3:
-      cout << "Ghi file";
-      writeFile("dothi3.txt", mt);
-      printAdjacencyMatrix(mt);
-      break;
-    case 4:
-      cout << "\nNhap dinh can tinh bac vao: ";
-      cin >> vertex;
-      cout << "So bac vao cua dinh " << vertex
-           << " la: " << calDegreeInDirected(mt, vertex);
-      break;
-    case 5:
-      edges = direcredGraphEdge(mt);
-      if (edges.count == 0) {
-        cout << "\nDo thi khong co canh nao";
-      } else {
-        cout << "\nTap canh cua do thi: ";
-        for (int i = 0; i < edges.count; i++) {
-          cout << "\n(" << edges.list[i].origin << " - "
-               << edges.list[i].destination << ", " << edges.list[i].weight
-               << ")";
+      case 1:
+        readFile("dothi1.txt", mt);
+        printAdjacencyMatrix(mt);
+        cout << "so dinh la " << mt.num;
+        break;
+      case 2:
+        readFile("dothi2.txt", mt);
+        printAdjacencyMatrix(mt);
+        cout << "so dinh la " << mt.num;
+        break;
+      case 3:
+        cout << "Ghi file";
+        writeFile("dothi3.txt", mt);
+        printAdjacencyMatrix(mt);
+        break;
+      case 4:
+        cout << "\nNhap dinh can tinh bac vao: ";
+        cin >> vertex;
+        cout << "So bac vao cua dinh " << vertex << " la: " << calDegreeInDirected(mt, vertex);
+        break;
+      case 5:
+        edges = direcredGraphEdge(mt);
+        if (edges.count == 0) {
+          cout << "\nDo thi khong co canh nao";
+        } else {
+          cout << "\nTap canh cua do thi: ";
+          for (int i = 0; i < edges.count; i++) {
+            cout << "\n(" << edges.list[i].origin << " - " << edges.list[i].destination << ", " << edges.list[i].weight << ")";
+          }
         }
-      }
-      cout << "\n";
-      //
-      break;
-    case 6:
-      edges = direcredGraphEdge(mt);
+        cout << "\n";
+        //
+        break;
+      case 6:
+        edges = direcredGraphEdge(mt);
 
-      mt1 = matrixDecoding(edges, mt.num);
-      printAdjacencyMatrix(mt1);
-      //
-      break;
+        mt1 = matrixDecoding(edges, mt.num);
+        printAdjacencyMatrix(mt1);
+        //
+        break;
 
-    case 7:
-      edges = direcredGraphEdge(mt);
-      mt = matrixDecodingDeriectional(edges, mt.num);
-      printAdjacencyMatrix(mt);
-      //
-      break;
+      case 7:
+        edges = direcredGraphEdge(mt);
+        mt = matrixDecodingDeriectional(edges, mt.num);
+        printAdjacencyMatrix(mt);
+        //
+        break;
 
-    case 8:
-      VERTEX verU;
-      cout << "\nnhap dinh can tim: ";
-      cin >> verU;
-      findLightestVertex(mt, verU);
-      //
-      break;
-    case 9:
-      cout << "Doi huong do thi";
-      redirectMatrix(mt);
-      printAdjacencyMatrix(mt);
-      //
-      break;
+      case 8:
+        VERTEX verU;
+        cout << "\nnhap dinh can tim: ";
+        cin >> verU;
+        findLightestVertex(mt, verU);
+        //
+        break;
+      case 9:
+        cout << "Doi huong do thi";
+        redirectMatrix(mt);
+        printAdjacencyMatrix(mt);
+        //
+        break;
 
-    case 10:
+      case 10:
 
-      cout << "\nNhap dinh bat dau: ";
-      cin >> v;
-      arrVer = breadthFirstSearch(mt, v);
-      for (int i = 0; i < arrVer.count; i++) {
-        cout << arrVer.list[i] << "\t";
-      }
-    case 11:
-      cout << "\nNhap dinh bat dau: ";
-      cin >> v;
-      arrVer = depthFirstSearch(mt, v);
-      for (int i = 0; i < arrVer.count; i++) {
-        cout << arrVer.list[i] << "\t";
-      }
+        cout << "\nNhap dinh bat dau: ";
+        cin >> v;
+        arrVer = breadthFirstSearch(mt, v);
+        for (int i = 0; i < arrVer.count; i++) {
+          cout << arrVer.list[i] << "\t";
+        }
+      case 11:
+        cout << "\nNhap dinh bat dau: ";
+        cin >> v;
+        arrVer = depthFirstSearch(mt, v);
+        for (int i = 0; i < arrVer.count; i++) {
+          cout << arrVer.list[i] << "\t";
+        }
     }
   } while (choice != 0);
   return 0;
